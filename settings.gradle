@@ -28,11 +28,11 @@ pluginManagement {
 
 rootProject.name = 'ModernUI-MC'
 
+// This fork only builds "common" and "neoforge" -- DNCity (the downstream consumer, via a
+// composite build) is a NeoForge-only mod, so upstream's "forge" (old ForgeGradle) and "fabric"
+// (Fabric Loom) subprojects are dropped to avoid pulling in their toolchains/plugins for no
+// reason.
 include 'common'
 
-include 'forge'
-project(':forge').name = "ModernUI-Forge"
 include 'neoforge'
 project(':neoforge').name = "ModernUI-NeoForge"
-include 'fabric'
-project(':fabric').name = "ModernUI-Fabric"

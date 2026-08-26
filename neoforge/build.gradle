@@ -170,11 +170,17 @@ if (project.hasProperty("keystore")) {
     }
 }
 
+// mod_version is captured into a local val here rather than read inside the filesMatching
+// closure below: that closure runs at execution time (lazily), and under the configuration
+// cache (enabled by a consuming composite build, e.g. DNCity's root project) an implicit
+// `mod_version` property lookup there can't be serialized/reconnected, causing a
+// MissingPropertyException at execution time even though configuration succeeded.
+def modVersionForResources = mod_version
 processResources {
-    inputs.property 'version', mod_version
+    inputs.property 'version', modVersionForResources
 
     filesMatching("META-INF/neoforge.mods.toml") {
-        expand 'version': mod_version
+        expand 'version': modVersionForResources
     }
 }
 
