@@ -192,8 +192,10 @@ jar {
                 "Specification-Version"   : "2",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.version,
-                "Implementation-Vendor"   : "BloCamLimb",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Implementation-Vendor"   : "BloCamLimb"
+                // No "Implementation-Timestamp": a build-time date changes the jar's inputs on every build, so the
+                // universal jar was rebuilt each time -- and on Windows that fails while another dev client
+                // (DNCity runClient + runClient2) still holds the old jar open. Nothing reads the timestamp.
         )
     }
 }
